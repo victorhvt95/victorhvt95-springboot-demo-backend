@@ -4,10 +4,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.demo_victor.demo.app.application.companies.CreateCompany;
+import com.demo_victor.demo.app.application.companies.DisableCompany;
+import com.demo_victor.demo.app.application.companies.EnableCompany;
+import com.demo_victor.demo.app.application.companies.GetCompany;
 import com.demo_victor.demo.app.application.companies.GetListCompany;
+import com.demo_victor.demo.app.application.companies.UpdateCompany;
 import com.demo_victor.demo.app.domain.entities.Company;
-import com.demo_victor.demo.app.infrastructure.models.CompanyModel;
-import com.demo_victor.demo.app.infrastructure.repositories.CompanyRepository;
 import com.demo_victor.demo.shared.mediator.simple_mediator.Mediator;
 import com.demo_victor.demo.shared.mediator.simple_mediator.SimpleMediator;
 
@@ -18,6 +20,9 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Tag(name = "Companies")
 @RestController
@@ -33,12 +38,34 @@ public class CompanyController {
     @GetMapping("")
     public List<Company> getList() {
         return this.mediator.send(new GetListCompany());
-        // return this.companyService.getAll();
     }
 
     @PostMapping("")
     public Company createCompany(@RequestBody CreateCompany company) {
         return this.mediator.send(company);
+    }
+
+    @PutMapping("/{companyId}")
+    public Company updateCompany(@PathVariable String companyId,
+            @RequestBody UpdateCompany updateCompany) {
+        return this.mediator.send(updateCompany);
+    }
+
+    @PutMapping("/{companyId}/enable")
+    public Company enableCompany(@PathVariable String companyId,
+            @RequestBody EnableCompany enableCompany) {
+        return this.mediator.send(enableCompany);
+    }
+
+    @PutMapping("/{companyId}/disable")
+    public Company disableCompany(@PathVariable String companyId,
+            @RequestBody DisableCompany disableCompany) {
+        return this.mediator.send(disableCompany);
+    }
+
+    @GetMapping("/{companyId}")
+    public Company getById(@RequestParam GetCompany getCompany) {
+        return this.mediator.send(getCompany);
     }
 
 }

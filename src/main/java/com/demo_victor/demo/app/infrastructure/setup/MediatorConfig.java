@@ -16,10 +16,7 @@ public class MediatorConfig {
     @Bean
     public SimpleMediator mediator(CompanyContract companyContract) {
         SimpleMediator mediator = new SimpleMediator();
-
-        mediator.registerHandler(GetListCompany.class, new GetListCompanyHandler(companyContract));
-
-        mediator.registerHandler(CreateCompany.class, new CreateCompanyHandler(companyContract));
+        MediatorCompanyRegistry.register(mediator, companyContract);
         return mediator;
     }
 }
