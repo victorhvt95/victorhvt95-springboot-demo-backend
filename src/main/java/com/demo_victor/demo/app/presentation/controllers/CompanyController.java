@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,20 +53,18 @@ public class CompanyController {
     }
 
     @PutMapping("/{companyId}/enable")
-    public Company enableCompany(@PathVariable String companyId,
-            @RequestBody EnableCompany enableCompany) {
-        return this.mediator.send(enableCompany);
+    public Company enableCompany(@PathVariable Long companyId) {
+        return this.mediator.send(new EnableCompany(companyId));
     }
 
     @PutMapping("/{companyId}/disable")
-    public Company disableCompany(@PathVariable String companyId,
-            @RequestBody DisableCompany disableCompany) {
-        return this.mediator.send(disableCompany);
+    public Company disableCompany(@PathVariable Long companyId) {
+        return this.mediator.send(new DisableCompany(companyId));
     }
 
     @GetMapping("/{companyId}")
-    public Company getById(@RequestParam GetCompany getCompany) {
-        return this.mediator.send(getCompany);
+    public Company getById(@PathVariable Long companyId) {
+        return this.mediator.send(new GetCompany(companyId));
     }
 
 }

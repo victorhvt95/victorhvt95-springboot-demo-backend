@@ -4,5 +4,5 @@ import com.demo_victor.demo.app.domain.entities.Company;
 import com.demo_victor.demo.shared.mediator.simple_mediator.Request;
 
 public record EnableCompany(
-                Long companyId) implements Request<Company> {
+        Long companyId) implements Request<Company> {
 }
